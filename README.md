@@ -44,8 +44,29 @@ Yes! And history changes according to you filters. It will show you how much gol
 
 ## What can be configured
 
-actually, many options, including minimap icon, icon size and more
+- Show/hide minimap button
+- Make the report window resizable
+- Show looted date in the report
+- Ignore items with 0 (zero) sell price
+- Ignore quest items (note, this is a default state and it can't be changed)
+- Show item ID in the report
+- Show item tooltip on mouse hover in the report
+- Show additional information in the tooltip (at the moment it adds a 'Total gathered' summary)
+- Change icon size
+
+## Some helpful additions
+
+Besides, some additional features are available:
+
+- print debug information
+- reset everything (this will erase all looted information for items and gold)
+- little FAQ
+- small informative statistics (how many items were looted, how many total quantity is and in how many zones you looted them)
+
+## Limitations
+
+- The addon can't track items that were updated during the looting at the moment
 
 ## License
 
-MyLootHistory is licensed under the GNU General Public License version 3.
+MyLootHistory is licensed under the GNU General Public License version 3. See License file for details.
