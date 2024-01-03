@@ -8,6 +8,7 @@ See License file for details.
 local MLH = MLH
 local AGUI = LibStub("AceGUI-3.0")
 local DU = LibStub("DateUtils-1.0")
+local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
 
 local isWindowShown = false
 local baseWindowWidth = 640
@@ -70,7 +71,7 @@ function MLH:gui()
     window:AddChild(groupItems)
 
     local timeRangeDropdown = AGUI:Create("Dropdown")
-    timeRangeDropdown:SetLabel("Report date range")
+    timeRangeDropdown:SetLabel(L["R_ReportDateRange"])
     timeRangeDropdown:SetList(getRangeList())
     timeRangeDropdown:SetValue(rangeValue)
     timeRangeDropdown:SetCallback("OnValueChanged", function(widget, event, key)
@@ -81,7 +82,7 @@ function MLH:gui()
     groupOptions:AddChild(timeRangeDropdown)
 
     local qualityDropdown = AGUI:Create("Dropdown")
-    qualityDropdown:SetLabel("Minimum Item quality")
+    qualityDropdown:SetLabel(L["R_MinimumItemQuality"])
     qualityDropdown:SetList(getQualityList())
     qualityDropdown:SetValue(qualityValue)
     qualityDropdown:SetCallback("OnValueChanged", function(widget, event, key)
@@ -92,7 +93,7 @@ function MLH:gui()
     groupOptions:AddChild(qualityDropdown)
 
     local exactItemQualityCheckBox = AGUI:Create("CheckBox")
-    exactItemQualityCheckBox:SetLabel("Exact item quality")
+    exactItemQualityCheckBox:SetLabel(L["R_ExactItemQuality"])
     exactItemQualityCheckBox:SetValue(exactItemQuality)
     exactItemQualityCheckBox:SetCallback("OnValueChanged", function(widget, event, value)
         exactItemQuality = not exactItemQuality
@@ -109,6 +110,7 @@ function MLH:gui()
     isWindowShown = true
 end
 
+-- move later
 function deepcopy(orig)
     local orig_type = type(orig)
     local copy
@@ -127,6 +129,7 @@ function deepcopy(orig)
     return copy
 end
 
+-- refactor and get rid of
 function getDate(addDays, reset)
     local curDate = date('*t')
     curDate.day = curDate.day + addDays
@@ -361,7 +364,7 @@ function updateSummary(totalItems, totalQuantity, totalSellPrice)
     if (window == nil) then return end
 
     if (totalItems == 0) then
-        window:SetStatusText('Loot something')
+        window:SetStatusText(L["R_LootSomething"])
         return
         
     end
@@ -373,8 +376,8 @@ function updateSummary(totalItems, totalQuantity, totalSellPrice)
     -- print(gold..' '..silver..' '..copper)
     -- print(GetMoneyString(totalSellPrice))
 
-    window:SetStatusText('Items: |cFF00CC00'..totalItems..'|r, Quantity: |cFF00CC00'
-        ..totalQuantity..'|r, Sell price: '..GetMoneyString(totalSellPrice))
+    window:SetStatusText(L["R_Items"].."|cFF00CC00"..totalItems.."|r, "..L["R_Quantity"].."|cFF00CC00"
+        ..totalQuantity.."|r, "..L["R_SellPrice"]..GetMoneyString(totalSellPrice))
 end
 
 function addGoldEarnedRow()
@@ -395,7 +398,7 @@ function addGoldEarnedRow()
 
     local nameLabel = AGUI:Create("Label")
 
-    nameLabel:SetText("Gold earned: "..GetMoneyString(calculateGoldFound()))
+    nameLabel:SetText(L["R_GoldEarned"]..GetMoneyString(calculateGoldFound()))
     nameLabel:SetWidth(250)
 
     goldFrame:AddChild(nameLabel)
@@ -417,7 +420,7 @@ function addIconRow(frame, itemLink, itemTexture, totalQuantity)
 
             if (MLH.db.char.config.showAdditionalTooltipData) then
                 GameTooltip:AddLine(" ")
-                GameTooltip:AddLine("|cFFDDDDDDTotal quantity gathered:|r |cFF00BB00"..(totalQuantity or 0)..'|r', 1, 1, 1, true)
+                GameTooltip:AddLine("|cFFDDDDDD"..L["R_TotalQuantityGathered"].."|r |cFF00BB00"..(totalQuantity or 0)..'|r', 1, 1, 1, true)
             end
 
             GameTooltip:Show()
@@ -459,7 +462,7 @@ end
 function addQuantityRow(frame, itemQuantity)
     local quantityLabel = AGUI:Create("Label")
 
-    quantityLabel:SetText("Quantity: "..itemQuantity)
+    quantityLabel:SetText(L["R_Quantity"]..itemQuantity)
     quantityLabel:SetWidth(100)
 
     frame:AddChild(quantityLabel)
@@ -467,7 +470,7 @@ end
 
 function addLastLootedRow(frame, itemFoundOn)
     local itemFoundOnLabel = AGUI:Create("Label")
-    itemFoundOnLabel:SetText("Looted: "..itemFoundOn)
+    itemFoundOnLabel:SetText(L["R_Looted"]..itemFoundOn)
     itemFoundOnLabel:SetWidth(200)
 
     frame:AddChild(itemFoundOnLabel)
@@ -476,7 +479,7 @@ end
 function addNothingIsHereLabel(frame)
     local emptyLabel = AGUI:Create("Label")
 
-    emptyLabel:SetText("Nothing is here yet.\n  Loot something or change the filters :)")
+    emptyLabel:SetText(L["R_NothingIsHereYet"])
     emptyLabel:SetWidth(100)
 
     --add 'reset filters' button ?
@@ -516,11 +519,11 @@ end
 
 function getRangeList()
     return {
-        [1] = "This session",
-        [2] = "Today",
-        [3] = "Yesterday",
-        [4] = "This reset (Wed-to-Wed)",
-        [5] = "This month",
-        [6] = "All the time",
+        [1] = L["RR_ThisSesion"],
+        [2] = L["RR_Today"],
+        [3] = L["RR_Yesterday"],
+        [4] = L["RR_WedToWed"],
+        [5] = L["RR_ThisMonth"],
+        [6] = L["RR_AllTheTime"],
     }
 end

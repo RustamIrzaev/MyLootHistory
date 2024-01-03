@@ -35,7 +35,7 @@ local generalOptions = {
             order = 10,
             type = "toggle",
             name = L["C_ShowMinimapButton"],
-            desc = "Show or hide the minimap button",
+            desc = L["C_ShowMinimapButton_Desc"],
             get = function (_)
                 return not MLH.db.char.minimapData.hide
             end,
@@ -51,7 +51,7 @@ local generalOptions = {
         resizableReportWindowCheckBox = {
             order = 11,
             type = "toggle",
-            name = "Resizable window",
+            name = L["C_ResizableWindow"],
             desc = "Make the report window resizable",
             get = function (_)
                 return MLH.db.char.config.resizableReportWindow
@@ -62,21 +62,21 @@ local generalOptions = {
         },
         detailedHeader = {
             type = 'header',
-            name = 'Detailed settings',
+            name = L["C_DetailedSettingsHeader"],
             order = 20,
         },
         groupReport = {
             type = 'group',
             order = 21,
-            name = 'Report',
+            name = L["C_Report"],
             args = {
                 showLastLootedRowCheckBox = {
                     order = 1,
                     width = "double",
                     type = "toggle",
                     -- descStyle = "inline",
-                    name = "Show last looted date row",
-                    desc = "Show or hide the last looted date row",
+                    name = L["C_ShowLastLootedRow"],
+                    desc = L["C_ShowLastLootedRow_Desc"],
                     get = function (_)
                         return MLH.db.char.config.showLastLooted
                     end,
@@ -103,8 +103,8 @@ local generalOptions = {
                     width = "double",
                     type = "toggle",
                     -- descStyle = "inline",
-                    name = "Ignore items with 0 sell price",
-                    desc = "Ignore items with 0 sell price in the report",
+                    name = L["C_IgnoreZeroPriceItems"],
+                    desc = L["C_IgnoreZeroPriceItems_Desc"],
                     get = function (_)
                         return MLH.db.char.config.ignoreItemsWithZeroPrice
                     end,
@@ -118,8 +118,8 @@ local generalOptions = {
                     width = "double",
                     type = "toggle",
                     disabled = true,
-                    name = "Ignore Quest items",
-                    desc = "Ignore quest items in the report",
+                    name = L["C_IgnoreQuestItems"],
+                    desc = L["C_IgnoreQuestItems_Desc"],
                     get = function (_)
                         return MLH.db.char.config.ignoreQuestItems
                     end,
@@ -132,8 +132,8 @@ local generalOptions = {
                     order = 7,
                     width = "double",
                     type = "toggle",
-                    name = "Show Item ID",
-                    desc = "Show or hide the Item ID value",
+                    name = L["C_ShowItemID"],
+                    desc = L["C_ShowItemID_Desc"],
                     get = function (_)
                         return MLH.db.char.config.showItemID
                     end,
@@ -146,8 +146,8 @@ local generalOptions = {
                     order = 9,
                     width = "double",
                     type = "toggle",
-                    name = "Show item tooltip",
-                    desc = "Show or hide the item tooltip on hover",
+                    name = L["C_ShowItemTooltip"],
+                    desc = L["C_ShowItemTooltip_Desc"],
                     get = function (_)
                         return MLH.db.char.config.showTooltip
                     end,
@@ -160,8 +160,8 @@ local generalOptions = {
                     order = 10,
                     width = "double",
                     type = "toggle",
-                    name = "Show additional tooltip data",
-                    desc = "Show or hide the additional tooltip data like item total quantity gathered, etc.",
+                    name = L["C_ShowAdditionalTooltipData"],
+                    desc = L["C_ShowAdditionalTooltipData_Desc"],
                     get = function (_)
                         return MLH.db.char.config.showAdditionalTooltipData
                     end,
@@ -173,7 +173,7 @@ local generalOptions = {
                 iconSizeRange = {
                     type = "range",
                     order = 12,
-                    name = "Icon size",
+                    name = L["C_IconSize"],
                     min = 8,
                     max = 64,
                     step = 1,
@@ -191,14 +191,14 @@ local generalOptions = {
         groupDebug = {
             type = 'group',
             order = 22,
-            name = 'Debug',
+            name = L["C_Debug"],
             args = {
                 printDebugLootedInfo = {
                     order = 1,
                     width = "double",
                     type = "toggle",
-                    name = "Print looted summary",
-                    desc = "",
+                    name = L["C_PrintLootedSummary"],
+                    desc = L["C_PrintLootedSummary_Desc"],
                     get = function (_)
                         return MLH.db.char.config.debug.printLootedSummary
                     end,
@@ -210,8 +210,8 @@ local generalOptions = {
                     order = 2,
                     width = "double",
                     type = "toggle",
-                    name = "Print other debug info",
-                    desc = "Like 'not my item' or so",
+                    name = L["C_PrintOtherDebugInfo"],
+                    desc = L["C_PrintOtherDebugInfo_Desc"],
                     get = function (_)
                         return MLH.db.char.config.debug.printOtherDebugInfo
                     end,
@@ -222,16 +222,15 @@ local generalOptions = {
                 clearData = {
                     order = 10,
                     type = "execute",
-                    name = "|cFFFF0000!!|r Clear data",
-                    desc = "Clear all gathered data",
+                    name = L["C_ClearData"],
+                    desc = L["C_ClearData_Desc"],
                     func = function ()
                         StaticPopupDialogs["PROMPT_CLEAR_DATA"] = {
-                            text = "Are you sure you want to clear the history of everything you looted?",
+                            text = L["M_ClearDataPrompt"],
                             button1 = YES,
                             button2 = NO,
                             OnAccept = function()
                                 MLH:resetData()
-                                print('cleared')
                             end,
                             OnCancel = function (_,_, reason) end,
                             whileDead = true,
@@ -285,6 +284,6 @@ function MLH:updateStatisticsTextData()
         end
     end
 
-    generalOptions["args"]["groupStatistics"]["args"]["statisticsText"]["name"] = 'Total different items gathered: '..itemTypesAmount
-    ..'\nTotal quantity gathered: '..totalAmount..'\nTotal zones looted: '..#zones
+    generalOptions["args"]["groupStatistics"]["args"]["statisticsText"]["name"] = L["M_TotalDifferentItemsGathered"]..itemTypesAmount
+    ..'\n'..L["M_TotalQuantityGathered"]..totalAmount..'\n'..L["M_TotalZonesLooted"]..#zones
 end

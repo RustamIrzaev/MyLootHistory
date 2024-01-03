@@ -11,12 +11,12 @@ local L = LibStub("AceLocale-3.0"):GetLocale("MyLootHistory")
 MLH.groupStatistics = {
     type = 'group',
     order = 32,
-    name = 'Statistics',
+    name = L["C_Statistics"],
     args = {
         statisticsText = {
             type = 'description',
             fontSize = 'medium',
-            name = 'Statistics',
+            name = '...',
         }
     }
 }
