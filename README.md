@@ -8,7 +8,7 @@ My Loot History is a World of Warcraft addon that tracks everything you looted. 
 
 ## What can be tracked
 
-- every item you loot: weapons, junk, herbs and everything elese
+- every item you loot: weapons, junk, herbs and everything else
 - every copper coin you loot
 
 > It does not track quest rewards or similar.
@@ -67,7 +67,7 @@ Besides, some additional features are available:
 
 ## Limitations
 
-- The addon can't track items that were updated during the looting at the moment
+- The addon can't track items that were upgraded during the looting at the moment (for example, you got 302 il item and it was instantly upgraded to 323 il)
 
 ## License
 
