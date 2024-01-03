@@ -8,7 +8,7 @@ See License file for details.
 local MLH = MLH
 local AGUI = LibStub("AceGUI-3.0")
 local DU = LibStub("DateUtils-1.0")
-local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
+local L = LibStub("AceLocale-3.0"):GetLocale("MyLootHistory")
 
 local isWindowShown = false
 local baseWindowWidth = 640
