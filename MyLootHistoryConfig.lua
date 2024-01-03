@@ -1,0 +1,303 @@
+--[[
+My Loot History - Rustam's loot history addon
+Copyright (C) 2024  Rustam (https://github.com/RustamIrzaev)
+
+This file is part of MyLootHistory
+
+MyLootHistory (or My Loot History) is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+MyLootHistory is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with MyLootHistory.  If not, see <http://www.gnu.org/licenses/>.
+--]]
+
+local MLH = MLH
+
+local ACFG = LibStub("AceConfig-3.0")
+local ACFGDLG = LibStub("AceConfigDialog-3.0")
+local MLH_MMIcon = LibStub("LibDBIcon-1.0")
+local L = LibStub("AceLocale-3.0"):GetLocale("MyLootHistory")
+
+local mainOptions = {
+    name = 'My Loot History',
+    type = 'group',
+    args = {
+        openSettingsButton = {
+            type = 'execute',
+            name = 'Open settings',
+            func = function ()
+                HideUIPanel(SettingsPanel)
+                ACFGDLG:Open("MyLootHistory_GeneralOptions")
+            end
+        }
+    }
+}
+
+local generalOptions = {
+    name = "My Loot History",
+    type = "group",
+    args = {
+        minimapButtonCheckBox = {
+            order = 10,
+            type = "toggle",
+            name = L["C_ShowMinimapButton"],
+            desc = "Show or hide the minimap button",
+            get = function (_)
+                return not MLH.db.char.minimapData.hide
+            end,
+            set = function (_, value)
+                MLH.db.char.minimapData.hide = not value
+                if (value) then
+                    MLH_MMIcon:Show("MyLootHistory_MinimapIcon_Object")
+                else
+                    MLH_MMIcon:Hide("MyLootHistory_MinimapIcon_Object")
+                end
+            end
+        },
+        resizableReportWindowCheckBox = {
+            order = 11,
+            type = "toggle",
+            name = "Resizable window",
+            desc = "Make the report window resizable",
+            get = function (_)
+                return MLH.db.char.config.resizableReportWindow
+            end,
+            set = function (_, value)
+                MLH.db.char.config.resizableReportWindow = value
+            end
+        },
+        detailedHeader = {
+            type = 'header',
+            name = 'Detailed settings',
+            order = 20,
+        },
+        groupReport = {
+            type = 'group',
+            order = 21,
+            name = 'Report',
+            args = {
+                showLastLootedRowCheckBox = {
+                    order = 1,
+                    width = "double",
+                    type = "toggle",
+                    -- descStyle = "inline",
+                    name = "Show last looted date row",
+                    desc = "Show or hide the last looted date row",
+                    get = function (_)
+                        return MLH.db.char.config.showLastLooted
+                    end,
+                    set = function (_, value)
+                        MLH.db.char.config.showLastLooted = value
+                    end
+                },
+                -- disable this if previous is disabled
+                -- showLastLootedTimeCheckBox = {
+                --     order = 2,
+                --     width = "double",
+                --     type = "toggle",
+                --     name = "Show last looted time",
+                --     desc = "Show or hide the last looted time.|nNote! This will work only for single dates, not for date ranges",
+                --     get = function (_)
+                --         return MLH.db.char.config.showLastLootedTime
+                --     end,
+                --     set = function (_, value)
+                --         MLH.db.char.config.showLastLootedTime = value
+                --     end
+                -- },
+                ignoreItemsWithZeroSellPriceCheckBox = {
+                    order = 2,
+                    width = "double",
+                    type = "toggle",
+                    -- descStyle = "inline",
+                    name = "Ignore items with 0 sell price",
+                    desc = "Ignore items with 0 sell price in the report",
+                    get = function (_)
+                        return MLH.db.char.config.ignoreItemsWithZeroPrice
+                    end,
+                    set = function (_, value)
+                        MLH.db.char.config.ignoreItemsWithZeroPrice = value
+                    end
+                },
+
+                ignoreQuestItemsCheckBox = {
+                    order = 5,
+                    width = "double",
+                    type = "toggle",
+                    disabled = true,
+                    name = "Ignore Quest items",
+                    desc = "Ignore quest items in the report",
+                    get = function (_)
+                        return MLH.db.char.config.ignoreQuestItems
+                    end,
+                    set = function (_, value)
+                        MLH.db.char.config.ignoreQuestItems = value
+                    end
+                },
+
+                showItemIDCheckBox = {
+                    order = 7,
+                    width = "double",
+                    type = "toggle",
+                    name = "Show Item ID",
+                    desc = "Show or hide the Item ID value",
+                    get = function (_)
+                        return MLH.db.char.config.showItemID
+                    end,
+                    set = function (_, value)
+                        MLH.db.char.config.showItemID = value
+                    end
+                },
+
+                showItemTooltipCheckBox = {
+                    order = 9,
+                    width = "double",
+                    type = "toggle",
+                    name = "Show item tooltip",
+                    desc = "Show or hide the item tooltip on hover",
+                    get = function (_)
+                        return MLH.db.char.config.showTooltip
+                    end,
+                    set = function (_, value)
+                        MLH.db.char.config.showTooltip = value
+                    end
+                },
+
+                showAdditionalTooltipDataCheckBox = {
+                    order = 10,
+                    width = "double",
+                    type = "toggle",
+                    name = "Show additional tooltip data",
+                    desc = "Show or hide the additional tooltip data like item total quantity gathered, etc.",
+                    get = function (_)
+                        return MLH.db.char.config.showAdditionalTooltipData
+                    end,
+                    set = function (_, value)
+                        MLH.db.char.config.showAdditionalTooltipData = value
+                    end
+                },
+
+                iconSizeRange = {
+                    type = "range",
+                    order = 12,
+                    name = "Icon size",
+                    min = 8,
+                    max = 64,
+                    step = 1,
+                    softMin = 12,
+                    softMax = 24,
+                    get = function (_)
+                        return MLH.db.char.config.reportIconSize
+                    end,
+                    set = function (_, value)
+                        MLH.db.char.config.reportIconSize = value
+                    end
+                }
+            }
+        },
+        groupDebug = {
+            type = 'group',
+            order = 22,
+            name = 'Debug',
+            args = {
+                printDebugLootedInfo = {
+                    order = 1,
+                    width = "double",
+                    type = "toggle",
+                    name = "Print looted summary",
+                    desc = "",
+                    get = function (_)
+                        return MLH.db.char.config.debug.printLootedSummary
+                    end,
+                    set = function (_, value)
+                        MLH.db.char.config.debug.printLootedSummary = value
+                    end
+                },
+                printDebugOtherInfo = {
+                    order = 2,
+                    width = "double",
+                    type = "toggle",
+                    name = "Print other debug info",
+                    desc = "Like 'not my item' or so",
+                    get = function (_)
+                        return MLH.db.char.config.debug.printOtherDebugInfo
+                    end,
+                    set = function (_, value)
+                        MLH.db.char.config.debug.printOtherDebugInfo = value
+                    end
+                },
+                clearData = {
+                    order = 10,
+                    type = "execute",
+                    name = "|cFFFF0000!!|r Clear data",
+                    desc = "Clear all gathered data",
+                    func = function ()
+                        StaticPopupDialogs["PROMPT_CLEAR_DATA"] = {
+                            text = "Are you sure you want to clear the history of everything you looted?",
+                            button1 = YES,
+                            button2 = NO,
+                            OnAccept = function()
+                                MLH:resetData()
+                                print('cleared')
+                            end,
+                            OnCancel = function (_,_, reason) end,
+                            whileDead = true,
+                            hideOnEscape = true,
+                            showAlert = true,
+                            enterClicksFirstButton = false,
+                          }
+                          
+                          StaticPopup_Show("PROMPT_CLEAR_DATA")
+                    end
+                }
+            }
+        },
+        groupStatistics = MLH.groupStatistics,
+        groupFaq = MLH.groupFaq,
+    }
+}
+
+function MLH:initConfig()
+    ACFG:RegisterOptionsTable("MyLootHistory_MainOptions", mainOptions)
+    ACFG:RegisterOptionsTable("MyLootHistory_GeneralOptions", generalOptions)
+
+    ACFGDLG:AddToBlizOptions("MyLootHistory_MainOptions", "My Loot History")
+
+    self:updateStatisticsTextData()
+end
+
+function MLH:updateStatisticsTextData()
+    local itemsFound = self.db.char.foundItems
+    local itemTypesAmount = #itemsFound
+    local totalAmount = 0
+    local zones = {}
+
+    for i = 1, itemTypesAmount do
+        for j = 1, #itemsFound[i].lootData do
+            totalAmount = totalAmount + itemsFound[i].lootData[j].quantity
+
+            local zoneID = itemsFound[i].lootData[j].zoneID or itemsFound[i].lootData[j].zone --shoud be zoneID
+            local zoneIndex = -1
+
+            for k = 1, #zones do
+                if (zones[k] == zoneID) then
+                    zoneIndex = k
+                    break
+                end
+            end
+
+            if (zoneIndex == -1) then
+                table.insert(zones, zoneID)
+            end
+        end
+    end
+
+    generalOptions["args"]["groupStatistics"]["args"]["statisticsText"]["name"] = 'Total different items gathered: '..itemTypesAmount
+    ..'\nTotal quantity gathered: '..totalAmount..'\nTotal zones looted: '..#zones
+end
