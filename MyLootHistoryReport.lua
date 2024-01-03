@@ -84,7 +84,6 @@ function MLH:gui()
     qualityDropdown:SetLabel("Minimum Item quality")
     qualityDropdown:SetList(getQualityList())
     qualityDropdown:SetValue(qualityValue)
-    -- qualityDropdown:SetCallback("OnValueChanged", qualityValueChanged)
     qualityDropdown:SetCallback("OnValueChanged", function(widget, event, key)
         qualityValue = key
         MLH.db.char.params.selectedQualityValue = qualityValue
@@ -106,16 +105,9 @@ function MLH:gui()
 
     window:Show()
     window:DoLayout()
-    -- window:ApplyStatus()
     
     isWindowShown = true
 end
-
--- function table.copy(t)
---     local u = { }
---     for k, v in pairs(t) do u[k] = v end
---     return setmetatable(u, getmetatable(t))
--- end
 
 function deepcopy(orig)
     local orig_type = type(orig)
@@ -359,7 +351,7 @@ function addItems(window)
 
         sf:FixScroll()
         sf:SetScroll(10000)
-        -- sf:SetScroll(container.frame:GetHeight() * #items)
+        -- sf:SetScroll(container.frame:GetHeight() * #items + gold + empty)
     end
 
     updateSummary(#items, totalQuantity, totalSellPrice)
@@ -492,10 +484,6 @@ function addNothingIsHereLabel(frame)
     frame:AddChild(emptyLabel)
 end
 
--- function qualityValueChanged(widget, event, key)
---     print('quality key='..key)
--- end
-
 function insertLinkToChat(itemLink)
     if (not itemLink) then return end
 
@@ -517,7 +505,8 @@ end
 function getQualityList()
     local result = {}
 
-    for i = 0, Enum.ItemQualityMeta.NumValues - 4 do -- ignores artifact, wow token and legacy items
+    -- ignores artifact, wow token and legacy items
+    for i = 0, Enum.ItemQualityMeta.NumValues - 4 do
         local _, _, _, hex = GetItemQualityColor(i)
         result[i] = '|c'..hex.._G["ITEM_QUALITY" .. i .. "_DESC"]..'|r'
      end

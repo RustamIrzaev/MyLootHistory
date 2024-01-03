@@ -9,7 +9,6 @@ local addonName, addon = ...
 
 MLH = LibStub("AceAddon-3.0"):NewAddon(addonName, "AceConsole-3.0", "AceEvent-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
--- local moneyPattern = GetLocale()=='ruRU' and '%d+ ' or '%d+'
 
 function MLH:OnInitialize()
     self:initDatabase()
@@ -18,7 +17,6 @@ function MLH:OnInitialize()
     self:RegisterChatCommand("mlh", "SlashCommandListener")
 
     self.db.char.thisSessionStart = time()
-    -- print('|cFF00DD00'..addonName..'|r loaded. Happy looting! |cFFFF0000♥|r')
     print(L["_IntroMessage"](addonName))
 end
 
@@ -57,13 +55,9 @@ function MLH:CHAT_MSG_LOOT(_, message, ...)
     end
 
     local zoneID = self:getZoneID()
-    -- ignore loot with zero price?
-
-    -- local totalAmount = line below
     local totalAmount = self:addItem(itemID, quantity, itemLink, itemTexture, itemQuality, itemName, zoneID, sellPrice)
 
     if (self.db.char.config.debug.printLootedSummary) then
-        -- print('Added '..itemLink..'. Total quantity: '..totalAmount)
         print(L["D_AddedAndTotal"](itemLink, totalAmount))
     end
 

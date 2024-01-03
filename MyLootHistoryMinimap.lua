@@ -12,7 +12,6 @@ local MLH_MMIcon = LibStub("LibDBIcon-1.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("MyLootHistory")
 local MinimapIconName = "MyLootHistory_MinimapIcon_Object"
 
---https://www.wowhead.com/icons?filter=6;1;0
 local minimapIcon = MLH_LDB:NewDataObject(MinimapIconName, {
     type = "data source",
     text = L["MM_IconTitle"],
@@ -21,7 +20,6 @@ local minimapIcon = MLH_LDB:NewDataObject(MinimapIconName, {
         if (button == "LeftButton") then
             MLH:gui()
         elseif (button == "RightButton") then
-            -- Settings.OpenToCategory("My Loot History")
             LibStub("AceConfigDialog-3.0"):Open("MyLootHistory_GeneralOptions")
         end
     end,
