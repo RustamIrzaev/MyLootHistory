@@ -1,6 +1,6 @@
 # My Loot History
 
-![https://www.curseforge.com/wow/addons/my-loot-history](https://img.shields.io/badge/download-CurseForge-orange) ![https://www.wowinterface.com/downloads/info26672-MyLootHistory.html](https://img.shields.io/badge/download-WoWInterface-blue)
+[![https://www.curseforge.com/wow/addons/my-loot-history](https://img.shields.io/badge/download-CurseForge-orange)](https://www.curseforge.com/wow/addons/my-loot-history) [![https://www.wowinterface.com/downloads/info26672-MyLootHistory.html](https://img.shields.io/badge/download-WoWInterface-blue)](https://www.wowinterface.com/downloads/info26672-MyLootHistory.html)
 
 My Loot History is a World of Warcraft addon that tracks everything you looted. Even copper coins.
 
