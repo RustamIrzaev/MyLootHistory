@@ -1,0 +1,26 @@
+{
+	"Lua.diagnostics.globals": [
+		"GameTooltip",
+		"GetItemQualityColor",
+		"ChatEdit_TryInsertChatLink",
+		"IsLeftShiftKeyDown",
+		"IsRightShiftKeyDown",
+		"GetMoneyString",
+		"GetItemInfo",
+		"date",
+		"time",
+		"UISpecialFrames",
+		"tinsert",
+		"LibStub",
+		"SettingsPanel",
+		"HideUIPanel",
+		"StaticPopupDialogs",
+		"YES",
+		"NO",
+		"StaticPopup_Show",
+		"LOOT_ITEM_SELF",
+		"Enum",
+		"GetItemInfoFromHyperlink",
+		"C_Map"
+	]
+}
