@@ -65,6 +65,11 @@ Besides, some additional features are available:
 - little FAQ
 - small informative statistics (how many items were looted, how many total quantity is and in how many zones you looted them)
 
+## Slash commands
+
+- `/mlh` opens the report
+- `/mlh config` opens the configuration window
+
 ## Limitations
 
 - The addon can't track items that were upgraded during the looting at the moment (for example, you got 302 il item and it was instantly upgraded to 323 il)
