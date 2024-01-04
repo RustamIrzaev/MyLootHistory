@@ -42,9 +42,9 @@ local generalOptions = {
             set = function (_, value)
                 MLH.db.char.minimapData.hide = not value
                 if (value) then
-                    MLH_MMIcon:Show("MyLootHistory_MinimapIcon_Object")
+                    MLH_MMIcon:Show("MyLootHistory")
                 else
-                    MLH_MMIcon:Hide("MyLootHistory_MinimapIcon_Object")
+                    MLH_MMIcon:Hide("MyLootHistory")
                 end
             end
         },

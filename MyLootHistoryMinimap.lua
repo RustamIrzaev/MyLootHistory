@@ -10,9 +10,8 @@ local MLH = MLH
 local MLH_LDB = LibStub("LibDataBroker-1.1")
 local MLH_MMIcon = LibStub("LibDBIcon-1.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("MyLootHistory")
-local MinimapIconName = "MyLootHistory_MinimapIcon_Object"
 
-local minimapIcon = MLH_LDB:NewDataObject(MinimapIconName, {
+local minimapIcon = MLH_LDB:NewDataObject("MyLootHistory", {
     type = "data source",
     text = L["MM_IconTitle"],
     icon = "Interface\\Icons\\inv_misc_map09",
@@ -32,11 +31,20 @@ local minimapIcon = MLH_LDB:NewDataObject(MinimapIconName, {
 })
 
 function MLH:initMinimap()
-    MLH_MMIcon:Register(MinimapIconName, minimapIcon, self.db.char.minimapData)
+    MLH_MMIcon:Register("MyLootHistory", minimapIcon, self.db.char.minimapData)
 
     if (self.db.char.minimapData.hide) then
-        MLH_MMIcon:Hide(MinimapIconName)
+        MLH_MMIcon:Hide("MyLootHistory")
     else
-        MLH_MMIcon:Show(MinimapIconName)
+        MLH_MMIcon:Show("MyLootHistory")
     end
+
+    AddonCompartmentFrame:RegisterAddon({
+        text = "MyLootHistory",
+        icon = "Interface\\Icons\\inv_misc_map09",
+        notCheckable = true,
+        func = function()
+            MLH:gui()
+        end,
+    })
 end

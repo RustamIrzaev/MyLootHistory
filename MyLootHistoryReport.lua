@@ -95,12 +95,24 @@ function MLH:gui()
     local exactItemQualityCheckBox = AGUI:Create("CheckBox")
     exactItemQualityCheckBox:SetLabel(L["R_ExactItemQuality"])
     exactItemQualityCheckBox:SetValue(exactItemQuality)
+    exactItemQualityCheckBox:SetWidth(150)
     exactItemQualityCheckBox:SetCallback("OnValueChanged", function(widget, event, value)
         exactItemQuality = not exactItemQuality
         MLH.db.char.params.selectedExactItemQuality = exactItemQuality
         addItems(groupItems)
     end)
     groupOptions:AddChild(exactItemQualityCheckBox)
+
+    local settingsButton = AGUI:Create("Icon")
+    settingsButton:SetImageSize(20, 20)
+    settingsButton:SetWidth(28)
+    settingsButton:SetHeight(28)
+    settingsButton:SetImage("Interface\\Buttons\\UI-OptionsButton")
+    settingsButton:SetCallback("OnClick", function()
+        window:Hide()
+        LibStub("AceConfigDialog-3.0"):Open("MyLootHistory_GeneralOptions")
+    end)
+    groupOptions:AddChild(settingsButton)
 
     addItems(groupItems)
 
