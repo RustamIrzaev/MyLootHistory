@@ -1,7 +1,7 @@
-## Interface: 100207
+## Interface: 110000
 ## Title: My Loot History
 ## Author: Rustam Irzaiev
-## Version: 1.0.3
+## Version: 1.0.4
 ## Notes: Look through |cFF00FF00everything|r you looted
 ## IconTexture: Interface\Icons\9xp_sigil_ardenweald01
 ## OptionalDeps: Ace3
